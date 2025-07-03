@@ -45,7 +45,7 @@ module.exports.cart_get = async (req, res) => {
     status: "InProgress",
   }).populate("product");
   // console.log(populatedCart); // Manually populated cart
-  res.render("bag/cart.ejs", { populatedCart, orders });
+  res.render("Bag/cart.ejs", { populatedCart, orders });
 };
 
 module.exports.cart_delete = async (req, res) => {
