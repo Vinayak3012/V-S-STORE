@@ -134,7 +134,7 @@ module.exports.completeOrder = async (req, res) => {
       }
     }
   }
-  res.render("order/CompletedOrder.ejs", {
+  res.render("order/completedOrder.ejs", {
     orders: myCompletedOrders,
   });
 };
