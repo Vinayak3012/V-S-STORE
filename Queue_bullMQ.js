@@ -5,7 +5,6 @@ const connection = {
   host: process.env.REDIS_HOST,
   port: parseInt(process.env.REDIS_PORT),
   password: process.env.REDIS_PASS,
-  tls: {}, // TLS is required by Redis Cloud
 };
 
 //email asynchronous tasks

@@ -10,7 +10,6 @@ const redis = new Redis({
   host: process.env.REDIS_HOST,
   port: parseInt(process.env.REDIS_PORT),
   password: process.env.REDIS_PASS,
-  tls: {}, // TLS is required by Redis Cloud
 });
 
 main()
@@ -18,15 +17,9 @@ main()
     console.log("DB connected successfully!");
   })
   .catch((err) => console.log(err));
-  
+
 async function main() {
-  await mongoose.connect(process.env.DB_URL, {
-    ssl: true,
-    sslValidate: true,
-    retryWrites: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(process.env.DB_URL);
 }
 
 //Average Rating Calculation

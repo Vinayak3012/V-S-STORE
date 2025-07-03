@@ -37,13 +37,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.DB_URL, {
-    ssl: true,
-    sslValidate: true,
-    retryWrites: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(process.env.DB_URL);
 }
 
 app.set("view engine", "ejs");
@@ -109,7 +103,6 @@ app.get("/", (req, res) => {
 
 app.post("/subscribe", async (req, res) => {
   let { email } = req.body;
-  console.log("send email");
   await emailQueue.add(
     "sendLatestUpdateEmail",
     {
