@@ -93,7 +93,7 @@ async function sendPostReq(all_data) {
   } else {
     try {
       const response = await axios.post(
-        "http://localhost:8081/confirm",
+        "/confirm",
         all_data,
         {
           headers: { "Content-Type": "application/json" },
