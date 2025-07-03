@@ -18,9 +18,15 @@ main()
     console.log("DB connected successfully!");
   })
   .catch((err) => console.log(err));
-
+  
 async function main() {
-  await mongoose.connect(process.env.DB_URL);
+  await mongoose.connect(process.env.DB_URL, {
+    ssl: true,
+    sslValidate: true,
+    retryWrites: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 //Average Rating Calculation
