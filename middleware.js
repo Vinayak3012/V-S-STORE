@@ -50,7 +50,7 @@ module.exports.getUser = (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, secretKey);
-      req.user = decoded; // Attach user data
+      req.user = decoded || null; // Attach user data
     } catch (error) {
       console.log("Invalid token, proceeding without user.");
       req.user = null; // Set to null if token is invalid
@@ -59,7 +59,7 @@ module.exports.getUser = (req, res, next) => {
     req.user = null; // If no token, set user to null
   }
 
-  res.locals.user = req.user; // Make user available in views
+  res.locals.user = req.user || null; // Make user available in views
   next();
 };
 

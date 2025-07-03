@@ -40,8 +40,6 @@ async function main() {
   await mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    ssl: true, // Keep this for Atlas
-    retryWrites: true,
   });
 }
 
