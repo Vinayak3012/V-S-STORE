@@ -19,10 +19,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(process.env.DB_URL);
 }
 
 //Average Rating Calculation
@@ -30,6 +27,7 @@ async function main() {
 async function CalAvgRating({ product_id }) {
   const product = await Product.findById(product_id).populate("reviews");
   let sum = 0;
+  console.log(product);
   for (let review of product.reviews) {
     sum = sum + review.rating;
   }
