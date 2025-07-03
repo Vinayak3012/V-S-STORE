@@ -1,0 +1,81 @@
+body {
+  background-color: rgb(216, 213, 213);
+  /* font-family: "Alumni Sans SC", sans-serif; */
+}
+
+.container {
+  width: 68vw;
+  height: 80vh;
+  margin: 3rem auto;
+  display: flex;
+  box-shadow: 4px 4px 12px rgb(190, 187, 187);
+}
+
+.left-sec {
+  height: 100%;
+  width: 60%;
+}
+
+.left-sec img {
+  height: 100%;
+  width: 100%;
+}
+
+.right-sec {
+  height: 100%;
+  width: 40%;
+  background-color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.logo {
+  font-family: "Alumni Sans SC", sans-serif;
+  font-size: 4rem;
+  text-decoration: underline;
+}
+
+.login-head {
+  font-size: 1.7rem;
+  margin-top: 2rem;
+  color: rgb(190, 187, 187);
+}
+.form-control {
+  background-color: white;
+  width: 80%;
+  border: none;
+  border-bottom: 2px solid black;
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+.form-control:enabled {
+  background-color: white;
+  border-bottom: 2px solid black;
+  box-shadow: none;
+}
+
+.btn-black {
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  width: 80%;
+  height: 2.4rem;
+  margin-top: 1rem;
+  font-weight: 700;
+  margin-left: -2rem;
+}
+
+.btn-black:hover {
+  color: #f7f1f0;
+  background-color: black;
+}
+
+#NoAcc {
+  color: black;
+  font-size: 1.1rem;
+}
+
+#NoAcc:hover {
+  color: rgb(190, 187, 187);
+}

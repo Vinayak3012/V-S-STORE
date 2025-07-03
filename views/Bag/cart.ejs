@@ -1,0 +1,123 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .card,.form-select,.form-control{
+    background-color: rgb(190, 187, 187);
+  }
+  .form-check-input:checked{
+    color: black;
+    background-color: black;
+  }
+  .cardCart{
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  .checkout{
+    font-size: 1.6rem;
+    font-weight: bold;
+     margin-right: 1rem;
+  }
+  hr{
+    width: 55rem;
+    margin:  1rem  auto;
+  }
+  h1{
+    border: 1px solid rgb(190, 187, 187);
+    padding: 0.5rem;
+    width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+  h4{
+    text-align: center;
+    font-size: 2.4rem;
+    text-decoration: underline black;
+    font-weight: 600;
+    margin-top: 3rem;
+  }
+</style>
+
+<h1>Your Bag <i class="fa-solid fa-bag-shopping"></i></h1>
+<hr>
+
+<% if(orders.length !=0 ){ %>
+  <div class="offset-4"> 
+    <span class="checkout">lets finish Your Last Incomplete Order! </span>
+  <a class="btn btn-web" href="/checkout">Checkout</a>
+  </div>
+  <hr>
+ <% } %>
+
+<% if(populatedCart.length == 0){ %>
+<h4>Oops!, Your Bag is Empty:( <br><a class="btn btn-web" href="/product/home">Shop Now</a></h4>
+
+<% } %>
+    <% for(let product of populatedCart) {%>
+      <div class="card mb-3 offset-2 cardCart " style="max-width:850px">
+        <div class="row g-0 p-2">
+          <div class="col-md-1">
+            <div class="form-check">
+              <input  class="form-check-input CartSelectedItem" type="checkbox" name="item" value="<%= product.item._id %>" checked>
+            </div>
+          </div> 
+          <div class="col-md-4">
+            <img
+            style="height: 300px;"
+              src="<%= product.item.img.url  %>"
+              class="img-fluid rounded-start"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <p class="card-title"><b><%=product.item.brand%></b></p>
+              <p class="card-text"><%=product.item.name%></p>
+                <p class="card-text">
+                  <div class="col-5 mb-2" style="display: flex;">
+                    <label class="form-control">Size: </label>
+                    <select class="form-select form-select-sm" name="size">
+                      <% for(let size of product.item.size){ %>
+                        <% if(size == product.selectedSize) {%>
+                          <option value="<%= size %>" selected><%= size %></option>
+                        <%} else { %>
+                          <option value="<%= size %>"><%= size %></option>
+                        <% } %>
+                      <% } %>
+                    </select>
+                  </div>
+                  <div class="col-5" style="display: flex;">
+                    <label class="form-control">Qty: </label>
+                    <select class="form-select form-select-sm" name="quantity">
+                      <option value="1" selected>1</option>
+                      <option value="2" >2</option>
+                      <option value="3" >3</option>
+                      <option value="4" >4</option>
+                      <option value="5" >5</option>
+                    </select>
+                  </div>
+                </p>
+                <p style="display:none"><%=product.item.price%></p>
+                <p class="card-text" >&#x20b9;<%=product.item.price.toLocaleString("en-IN");%></p>
+            </div>
+          </div>
+      <div class="col-md-1">
+        <div class="card-body">
+          <form method="POST" action="/cart/<%= product.item._id %>?_method=DELETE">
+            <button class="btn btn-web">X</button>
+          </form>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  <% } %>
+  <div>
+    <% if(populatedCart.length != 0){ %>
+      <div class="col-7 offset-3 ">
+        <button id="PlaceOrder" class="btn btn-web" style="width: 40rem;">Proceed To Order</button>
+      </div>
+      <% } %>
+  </div>
+
+<!-- //script   -->
+<script src="/js/cartScript.js"></script>  

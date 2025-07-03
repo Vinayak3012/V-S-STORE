@@ -1,0 +1,151 @@
+.checked {
+  color: GOLD;
+}
+
+body {
+  background-color: #f7f1f0;
+  font-family: "Alumni Sans SC", sans-serif;
+}
+#footer {
+  background-color: #f7f1f0;
+  color: black !important;
+  border: 2px solid black;
+}
+
+.footer-brand {
+  color: black !important;
+  font-size: 2.5rem;
+  text-decoration: underline black !important;
+}
+.logos {
+  color: black !important;
+  font-size: 1.7rem;
+}
+
+nav {
+  width: 100vw;
+  height: 15vh;
+  border: 2px solid black;
+  background-color: #f7f1f0;
+}
+.navbar-brand {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-decoration: underline black;
+  margin-left: 4rem;
+}
+
+.nav-link {
+  font-size: 2rem;
+  font-weight: 700;
+  color: black;
+}
+
+.nav-link:hover {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: rgb(190, 187, 187);
+  text-decoration: underline solid rgb(190, 187, 187);
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 15px;
+  flex-direction: row;
+  margin-left: 12rem;
+}
+
+.btn-web {
+  color: black;
+  background-color: #f7f1f0;
+  border: 1px solid black;
+}
+.btn-web:hover {
+  color: #f7f1f0;
+  background-color: black;
+}
+
+.newSearchBar {
+  background-color: rgb(190, 187, 187) !important;
+  margin-right: 0.2rem;
+  width: 12rem;
+}
+
+.search form {
+  display: flex;
+  margin-top: 0.8rem;
+  margin-left: 22rem;
+}
+
+.newsearch form{
+  display: flex;
+  margin-top: 0.8rem;
+  margin-left: 38rem;
+}
+.admin-nav-head{
+  color: gold;
+}
+
+/* Star */
+
+.star-cb-group {
+  /* remove inline-block whitespace */
+  font-size: 0;
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  /* the hidden clearer */
+}
+.star-cb-group * {
+  font-size: 2rem;
+}
+.star-cb-group > input {
+  display: none;
+}
+.star-cb-group > input + label {
+  /* only enough room for the star */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 9999px;
+  width: 1em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.star-cb-group > input + label:before {
+  display: inline-block;
+  text-indent: -9999px;
+  content: "☆";
+  color: #888;
+}
+.star-cb-group > input:checked ~ label:before,
+.star-cb-group > input + label:hover ~ label:before,
+.star-cb-group > input + label:hover:before {
+  content: "★";
+  color: gold;
+  text-shadow: 0 0 1px #333;
+}
+.star-cb-group > .star-cb-clear + label {
+  text-indent: -9999px;
+  width: 0.5em;
+  margin-left: -0.5em;
+}
+.star-cb-group > .star-cb-clear + label:before {
+  width: 0.5em;
+}
+.star-cb-group:hover > input + label:before {
+  content: "☆";
+  color: #888;
+  text-shadow: none;
+}
+.star-cb-group:hover > input + label:hover ~ label:before,
+.star-cb-group:hover > input + label:hover:before {
+  content: "★";
+  color: gold;
+  text-shadow: 0 0 1px #333;
+}
+
+/* reviews */
+.reviews {
+  padding: 10px;
+  border-bottom: 2px solid #c3a6a0;
+}

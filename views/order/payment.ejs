@@ -1,0 +1,101 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  .card {
+    background-color: #bebbbb;
+  }
+  .btn-web {
+    font-size: 1.3rem !important;
+  }
+</style>
+
+<div class="row">
+  <div class="card col-6 offset-3" style="border: 1px solid #f7f1f0">
+    <div class="card-body text-center">
+      <div class="card-title">
+        <h1 style="text-decoration: underline black"><b>Payment</b></h1>
+      </div>
+      <div class="card-font">
+        <h2>Mode: <%= order.mode %></h2>
+        <% if(order.mode == "pay online") { %>
+        <div class="card-button">
+          <% if(!order.isPaid){ %>
+          <button id="buy-now-btn" class="btn btn-web">Pay Now</button>
+          <span id="order_id" style="display: none"><%= order._id %></span>
+          <% } %> <% if(order.isPaid){ %>
+          <div class="card-button">
+            <form action="/place/<%= order._id %>">
+              <button class="btn btn-web">Place Order</button>
+            </form>
+          </div>
+          <% } %>
+        </div>
+        <% }else{ %>
+        <div class="card-button">
+          <form action="/place/<%= order._id %>">
+            <button class="btn btn-web">Place Order</button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  const payButton = document.querySelector("#buy-now-btn");
+  const order_id = document.querySelector("#order_id");
+
+  payButton.addEventListener("click", async (event) => {
+    const response = await fetch("/payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: order_id.innerText }), // Rs.500
+    });
+
+    const responseJson = await response.json();
+
+    const { order, orderInfo, key } = responseJson;
+
+    const razorPayOptions = {
+      key: key,
+      amount: orderInfo.amount,
+      currency: "INR",
+      name: orderInfo.product.name,
+      description: `Paying for testing`,
+      order_id: order.id,
+      handler: function (response) {
+        // handler function when payment is successful
+        const razorpayPaymentId = response["razorpay_payment_id"];
+        const razorpayOrderId = response["razorpay_order_id"];
+        const razorpaySignature = response["razorpay_signature"];
+        console.log("Payment successful");
+        // Send payment details to backend for verification
+        fetch(`/payment/verify/${orderInfo._id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            razorpay_payment_id: razorpayPaymentId,
+            razorpay_order_id: razorpayOrderId,
+            razorpay_signature: razorpaySignature,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            window.location.href = `/proceed-to-pay/${data.order._id}`;
+            // Optionally redirect or show success message
+          })
+          .catch((error) => {
+            console.error("Error verifying payment:", error);
+          });
+      },
+    };
+
+    const razorpayInstance = new Razorpay(razorPayOptions);
+    razorpayInstance.open();
+  });
+</script>

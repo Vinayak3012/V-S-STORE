@@ -1,0 +1,114 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  span {
+    margin-left: 2rem;
+  }
+  .card{
+    background-color: #f7f1f0;
+    font-size: 1.2rem;
+  }
+  .orderDetail {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 5px;
+  }
+
+  h1 {
+    border: 1px solid rgb(190, 187, 187);
+    padding: 0.5rem;
+    width: 30rem;
+    text-align: center;
+    margin: 2rem auto;
+  }
+  .form-control{
+    background-color: #f7f1f0;
+  }
+  .order{
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  h4{
+    text-align: center;
+    font-size: 2.4rem;
+    text-decoration: underline black;
+    font-weight: 600;
+    margin-top: 3rem;
+  }
+</style>
+
+<h1>Checkout Orders Summary <i class="fa-solid fa-inbox"></i></h1>
+
+<% if(orders.length==0){ %>
+<h4>Oops!, No order for checkout:) </h4>
+<% }else{ %> <% for(let order of orders){ %>
+<div class="row">
+  <div class="card col-6 offset-3" style="border: 2px solid black">
+    <div class="card-body">
+      <div
+        class="card-title"
+        style="display: flex; gap:10rem"
+      >
+      <span class="order">
+           <p>#Order <%= order.order_id %></p>
+      </span>
+        <span>
+          <form method="POST" action="/place/<%= order._id %>?_method=DELETE">
+            <button class="btn btn-web">X</button>
+          </form>
+        </span>
+      </div>
+
+      <hr />
+      <div class="card-text">
+     
+        <p class="orderDetail">
+          <%= order.product.name %> <br />
+          <span>Quantity: <%= order.quantity %></span>
+          <span>Size: <%= order.selectedSize %></span> <br />
+          <span>Price: &#x20b9;<%= order.product.price %></span>
+        </p>
+      </div>
+      <hr />
+      <div class="card-title"><b>PRICE DETAILS</b></div>
+      <div class="card-text">
+        <p>
+          Total Amount: &#x20b9;<%= order.amount %> <br />
+          Platform Fee : Free <br />
+          Shipping Charges : Free
+        </p>
+      </div>
+      <hr style="width: 10rem;" />
+      <div class="Total-Amount">Total Amount: &#x20b9;<%=order.amount%></div>
+      <hr />
+      <div class="card-text">
+        <b>Address Of Delivery: </b><br />
+        <% if(user.profile) {%>
+        <span><%=user.profile.address%></span>
+        <br /><br />
+        <a href="/profile" class="btn btn-web">Change Profile Address</a>
+        <% } else { %>
+        <a href="/profile" class="btn btn-web">Complete Your Profile</a>
+        <% } %>
+      </div>
+      <hr />
+
+      <div class="card-text">
+        <p><b>Select Payment Method: </b></p>
+        <form action="/proceed-to-pay/<%= order._id %>" method="POST">
+          <div class="mb-3">
+            <select class="form-control" name="mode" required>
+              <option value="" selected>Select Payment Method:</option>
+              <option value="cash on delivery">Cash On Delivery</option>
+              <option value="pay online">Pay Online</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-web">Proceed To Payment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<% } %> <% } %>

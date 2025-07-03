@@ -1,0 +1,156 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  h2 {
+    text-align: center;
+  }
+</style>
+<div class="container">
+  <div class="graph">
+    <h2>overall data</h2>
+    <canvas id="myChart"></canvas>
+  </div>
+  <hr />
+  <div class="graph">
+    <h2>
+      <%= new Date().toLocaleDateString('en-US', { month: 'long', year:
+      'numeric' }); %> Data
+    </h2>
+    <canvas id="myMonthChart"></canvas>`
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById("myChart");
+  const ctx2 = document.getElementById("myMonthChart");
+
+  async function fetchData() {
+    path = "/graph/data/product";
+    const res = await fetch(path);
+    let data = res.json();
+    return data;
+  }
+
+  fetchData()
+    .then((res) => {
+      let overallData = res.overallData;
+
+      let overallProductData = res.overallProductData;
+      let data_product = [];
+      let data_order = [];
+      for (order of overallProductData) {
+        data_product.push(order._id);
+        data_order.push(order.totalOrders);
+      }
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: data_product,
+          datasets: [
+            {
+              label: "Number Of Orders",
+              data: data_order,
+              backgroundColor: ["rgba(0,0,0,0.7)"],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Overall Sells Of Products",
+              font: {
+                size: 22,
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Sellers",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Orders Count",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+          },
+        },
+      });
+      //new
+      let monthly_data = [];
+      let date = new Date();
+      for (let data of overallData) {
+        const d = new Date(data.date);
+        if (d.getMonth() == date.getMonth() && d.getYear() == date.getYear()) {
+          monthly_data.push(data);
+        }
+      }
+      new Chart(ctx2, {
+        type: "bar",
+        data: {
+          labels: monthly_data[0].products,
+          datasets: [
+            {
+              label: "Number Of Orders",
+              data: monthly_data[0].orders,
+              backgroundColor: ["rgba(0,0,0,0.7)"],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${new Date().toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })} Sells Of Products`,
+              font: {
+                size: 22,
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Sellers",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Orders Count",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+          },
+        },
+      });
+    })
+
+    .catch((e) => {
+      console.log(e);
+    });
+</script>

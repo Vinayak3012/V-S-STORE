@@ -1,0 +1,203 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  .container {
+    font-size: 1.3rem;
+  }
+  .rating {
+    background-color: #e9e9e4;
+    margin-left: 5rem;
+    padding: 3px 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: black;
+    font-size: 1.1rem;
+  }
+  .rating1 {
+    background-color: #b5b509;
+    margin-left: 9rem;
+    padding: 3px 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: white;
+    font-size: 1.1rem;
+  }
+  .green {
+    color: rgb(26, 190, 26);
+  }
+  .orange {
+    color: rgb(211, 142, 14);
+  }
+  .quantity {
+    color: green;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .out {
+    color: red;
+    border: 1px solid red;
+    display: inline-block;
+    padding: 0.5rem;
+    font-weight: bold;
+  }
+</style>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-6 text-center">
+      <br />
+      <div>
+        <img
+          style="height: 400px; width: 310px"
+          src="<%= product.img.url  %>"
+          alt=""
+        />
+      </div>
+      <br />
+    </div>
+    <div class="col-4 mt-3" style="margin-left: -100px">
+      <hr />
+      <p style="font-size: 1.5rem">
+        <b><%=product.brand%></b> <% if(product.avg_rating){ %>
+        <b class="rating"
+          ><%=product.avg_rating%> <% if(product.avg_rating < 3) {%>
+          <i class="fa-solid fa-star orange"></i> <% } else{%>
+          <i class="fa-solid fa-star green"></i><% } %> | <%=
+          product.reviews.length.toLocaleString('en-US', {
+          maximumFractionDigits: 2, notation: 'compact', compactDisplay: 'short'
+          }); %></b
+        >
+        <% }else{ %>
+        <b class="rating1">No Reviews</b>
+        <% } %>
+      </p>
+      <p><%=product.name%></p>
+      <hr />
+      <p><b>&#x20b9;<%=product.price.toLocaleString("en-IN");%></b></p>
+      <div>
+        <% if(product.quantity != 0){ %>
+        <form action="/cart/<%= product._id %>" method="POST">
+          <div class="mb-3">
+            <p>Sizes:</p>
+            <% for(size of product.size) {%>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="size"
+                id="inlineRadio1"
+                value="<%= size %>"
+                required
+              />
+              <label class="form-check-label" for="inlineRadio1"
+                ><%=size%></label
+              >
+            </div>
+            <% } %>
+          </div>
+          <% if(user.role != "seller"){ %>
+          <button class="btn btn-web mb-2">Add To Bag</button>
+          <% } %> <% if(product.quantity < 6){ %>
+          <p class="quantity">Only <%= product.quantity %> quantity left!</p>
+          <% } %>
+        </form>
+        <% }else{ %>
+        <p class="out">Out of Stock!</p>
+        <% } %> <% if(product.owner.equals(user.id) || user.role=='admin'){ %>
+        <div class="mb-2">
+          <form
+            action="/product/<%= product.id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-outline-danger">Delete</button>
+          </form>
+        </div>
+        <div class="mb-2">
+          <form action="/product/edit/<%= product.id %>" method="GET">
+            <button class="btn btn-outline-success">Edit</button>
+          </form>
+        </div>
+        <% } %>
+      </div>
+
+      <br />
+    </div>
+  </div>
+  <br />
+
+  <div class="row offset-2">
+    <div class="col-9">
+      <h4>Product Description</h4>
+      <hr />
+      <div><%= product.description %></div>
+    </div>
+  </div>
+
+  <br />
+  <div class="col-4 offset-2">
+    <h4>Reviews</h4>
+    <hr />
+    <% if(user.role != 'seller' && product.showReview == false) {%>
+    <h4>Leave a Review</h4>
+    <form
+      action="/product/<%= product._id %>/review"
+      method="POST"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="mb-3">
+        <span class="star-cb-group">
+          <input type="radio" id="rating-5" name="rating" value="5" />
+          <label for="rating-5">5</label>
+          <input type="radio" id="rating-4" name="rating" value="4" />
+          <label for="rating-4">4</label>
+          <input type="radio" id="rating-3" name="rating" value="3" />
+          <label for="rating-3">3</label>
+          <input type="radio" id="rating-2" name="rating" value="2" />
+          <label for="rating-2">2</label>
+          <input type="radio" id="rating-1" name="rating" value="1" />
+          <label for="rating-1">1</label>
+        </span>
+      </div>
+
+      <div class="mb-3">
+        <label for="comment" class="form-label">Comments</label>
+        <textarea
+          name="comment"
+          id="comment"
+          cols="20"
+          rows="4"
+          class="form-control"
+          required
+          style="background-color: #e9e9e4"
+        ></textarea>
+        <div class="invalid-feedback">Please add some comment for review</div>
+      </div>
+
+      <button class="btn btn-web">Submit</button>
+    </form>
+    <hr />
+    <% } %>
+  </div>
+  <div class="col-4 offset-2">
+    <% for(let review of product.reviews) { %>
+    <div class="reviews mb-3">
+      <p><b>@<%= review.created_by %></b></p>
+      <p class="rating" style="display: none"><%= review.rating %></p>
+      <span class="fa fa-star" id="star"></span>
+      <span class="fa fa-star" id="star"></span>
+      <span class="fa fa-star" id="star"></span>
+      <span class="fa fa-star" id="star"></span>
+      <span class="fa fa-star" id="star"></span>
+      <p><%= review.comment %></p>
+      <% if(review.created_by === user.username){ %>
+      <form
+        action="/product/<%= product.id %>/<%= review.id %>/review?_method=DELETE"
+        method="post"
+      >
+        <button class="btn btn-danger">Delete</button>
+      </form>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+  <br />
+</div>

@@ -1,0 +1,234 @@
+body {
+  background-color: #f7f1f0;
+}
+
+.full-screen {
+  font-family: "Alumni Sans SC", sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.nav {
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  margin-left: 10rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+.nav ul li a {
+  text-decoration: none;
+  font-size: 2rem;
+  color: black;
+  font-weight: 700;
+}
+#logo {
+  font-weight: 800;
+  font-size: 3.5rem;
+  margin-right: 12rem;
+  text-decoration: underline;
+}
+#nav-icons {
+  margin-left: 12rem;
+}
+.main {
+  /* background-image: url("/assests/fo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; */
+  width: 100vw;
+  height: 80vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.second-section {
+  height: 60vh;
+  width: 100vw;
+  background-color: rgb(216, 213, 213);
+  text-align: center;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-second {
+  height: 42vh;
+  font-size: 1.7rem;
+  width: 70vw;
+  background-color: #f7f1f0;
+  text-align: center;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.container-second .head {
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+.btn-black {
+  font-size: 1.5rem;
+  color: black;
+  background-color: #f7f1f0;
+  border: 1px solid black;
+  width: 8rem;
+  height: 3rem;
+  margin-top: 2.5rem;
+  font-weight: 600;
+}
+.btn-black:hover {
+  color: #f7f1f0;
+  background-color: black;
+}
+
+.heading-1 {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 5rem;
+}
+
+.card-section {
+  height: 50vh;
+  width: 80vw;
+  margin: 3rem auto;
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+}
+
+.second-card-sec {
+  margin-top: -5rem;
+  margin-bottom: -5rem;
+}
+
+.card-section .img {
+  width: 20vw;
+}
+
+.card-img-top {
+  height: 18rem;
+}
+.card-img-top:hover {
+  height: 18.2rem;
+  opacity: 0.8;
+}
+
+.card-body {
+  background-color: black;
+  color: #f7f1f0;
+  text-align: center;
+  font-size: 1.6rem;
+}
+#footer {
+  background-color: #f7f1f0;
+  color: black !important;
+  border: 2px solid black;
+}
+
+.footer-brand {
+  color: black !important;
+  font-size: 2.5rem;
+  text-decoration: underline black !important;
+}
+.logos {
+  color: black !important;
+  font-size: 1.7rem;
+}
+
+.form-section {
+  margin-top: 3rem;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(216, 213, 213);
+  align-items: center;
+}
+
+.form-section .head {
+  font-size: 2.4rem;
+  margin-right: 3rem;
+}
+.form-section form {
+  display: flex;
+}
+.form-section form input {
+  width: 20rem;
+  background-color: #f7f1f0;
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.form-section form button {
+  width: 8rem;
+  margin-top: 0;
+  border-radius: 0;
+  margin-left: 1rem;
+}
+
+.nav ul li a:hover {
+  font-size: 2.1rem;
+  text-decoration: underline solid rgb(190, 187, 187);
+  color: rgb(190, 187, 187);
+}

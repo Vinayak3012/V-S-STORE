@@ -1,0 +1,76 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  h1 {
+    border: 1px solid rgb(190, 187, 187);
+    padding: 0.5rem;
+    width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .form-control,
+  .form-select {
+    background-color: #f7f1f0;
+  }
+  form {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+</style>
+<h1>Profile Details <i class="fa-solid fa-user"></i></h1>
+<div class="offset-4">
+  <form method="POST" action="/profile" novalidate class="needs-validation">
+    <div class="mb-3 col-6">
+      <hr />
+      <label for="name" class="form-label">Name: </label>
+      <input
+        type="text"
+        name="profile[name]"
+        id="name"
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">Good name</div>
+    </div>
+    <div class="mb-3 col-6">
+      <label for="age" class="form-label">Age:</label>
+      <input
+        type="number"
+        name="profile[age]"
+        id="age"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3 col-6">
+      <label for="phoneNo" class="form-label">Phone Number:</label>
+      <input
+        type="number"
+        name="profile[phoneNo]"
+        id="phoneNo"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3 row">
+      <div class="col-4">
+        <select class="form-select" name="profile[gender]" required>
+          <option selected disabled value="">Select Gender:</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="trans">other</option>
+        </select>
+      </div>
+    </div>
+    <div class="mb-3 col-6">
+      <label for="address" class="form-label">Address:</label>
+      <p>Note: Mention full & valid address.. it used as delivery address</p>
+      <textarea
+        name="profile[address]"
+        id="address"
+        class="form-control"
+        required
+      ></textarea>
+    </div>
+    <button class="btn btn-web">Update Profile</button>
+  </form>
+</div>

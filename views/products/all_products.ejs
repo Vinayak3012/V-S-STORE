@@ -1,0 +1,702 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  .my-scrollable-div {
+    overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+
+  .my-scrollable-div::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .rating {
+    background-color: #e9e9e4;
+    margin-left: 5rem;
+    padding: 3px 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: black;
+  }
+  .rating1 {
+    background-color: #b5b509;
+    margin-left: 5rem;
+    padding: 3px 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: white;
+  }
+  .green {
+    color: rgb(26, 190, 26);
+  }
+  .orange {
+    color: rgb(211, 142, 14);
+  }
+
+  /* all_products */
+  .card {
+    height: 100%;
+    width: 100%;
+  }
+  .card:hover {
+    box-shadow: 3px 3px 6px black;
+  }
+  #main {
+    display: flex;
+    gap: 20px;
+    width: 90vw;
+    margin-left: -50px;
+  }
+  #leftside {
+    width: 20%;
+    height: 90vh;
+  }
+  #rightside {
+    width: 80%;
+  }
+  .products {
+    height: 80vh;
+    padding: 20px;
+  }
+  .price-range-wrapper {
+    width: 300px;
+    padding: 1rem;
+    border-radius: 12px;
+    font-family: sans-serif;
+  }
+
+  .price-range-label {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+    display: block;
+    font-size: 0.7rem;
+  }
+
+  .price-slider {
+    width: 100%;
+    height: 0.4rem;
+    margin-top: 0.5rem;
+    accent-color: black; /* Modern browsers support this */
+  }
+
+  .price-value {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333;
+    margin-top: 0.1rem;
+    font-weight: bold;
+  }
+  .quantity {
+    color: green;
+    text-decoration: underline;
+    margin-left: 7rem;
+    font-size: 1.2rem;
+  }
+  .color div label {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
+  .out {
+    color: red;
+    border: 1px solid red;
+    display: inline-block;
+    padding: 0.5rem;
+    font-weight: bold;
+    margin-left: 5rem;
+  }
+</style>
+
+<div id="main">
+  <div id="leftside" class="my-scrollable-div">
+    <form id="filter" method="POST">
+      <div class="row p-1">
+        <div>
+          <button
+            style="width: 200px; margin: 0 auto"
+            class="btn btn-web mb-2"
+            type="submit"
+          >
+            Apply Filter
+          </button>
+        </div>
+
+        <% if(user && user.role == 'seller') {%>
+        <div>
+          <a style="width: 200px" class="btn btn-web" href="/product">Clear</a>
+        </div>
+        <% } %>
+
+        <div
+          class="col-12 color gap-2 p-3 my-scrollable-div"
+          style="max-height: 370px"
+        >
+          <div>
+            <h4 class="mb-3">Colors</h4>
+            <input name="color" type="checkbox" id="black" value="black" />
+            <label
+              for="black"
+              style="
+                background-color: #000000;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Black</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="white" value="white" />
+            <label
+              for="white"
+              style="
+                background-color: #ffffff;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >White</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="red" value="red" />
+            <label
+              for="red"
+              style="
+                background-color: #ff0000;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Red</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="blue" value="blue" />
+            <label
+              for="blue"
+              style="
+                background-color: #0000ff;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Blue</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="navy" value="navy" />
+            <label
+              for="navy"
+              style="
+                background-color: #000080;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Navy Blue</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="skyblue" value="skyblue" />
+            <label
+              for="skyblue"
+              style="
+                background-color: #87ceeb;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Sky Blue</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="green" value="green" />
+            <label
+              for="green"
+              style="
+                background-color: #008000;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Green</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="olive" value="olive" />
+            <label
+              for="olive"
+              style="
+                background-color: #808000;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Olive</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="lime" value="lime" />
+            <label
+              for="lime"
+              style="
+                background-color: #00ff00;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Lime</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="yellow" value="yellow" />
+            <label
+              for="yellow"
+              style="
+                background-color: #ffff00;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Yellow</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="mustard" value="mustard" />
+            <label
+              for="mustard"
+              style="
+                background-color: #ffdb58;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Mustard</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="orange" value="orange" />
+            <label
+              for="orange"
+              style="
+                background-color: #ffa500;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Orange</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="brown" value="brown" />
+            <label
+              for="brown"
+              style="
+                background-color: #a52a2a;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Brown</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="beige" value="beige" />
+            <label
+              for="beige"
+              style="
+                background-color: #f5f5dc;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Beige</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="cream" value="cream" />
+            <label
+              for="cream"
+              style="
+                background-color: #fffdd0;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Cream</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="maroon" value="maroon" />
+            <label
+              for="maroon"
+              style="
+                background-color: #800000;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Maroon</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="purple" value="purple" />
+            <label
+              for="purple"
+              style="
+                background-color: #800080;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Purple</label
+            >
+          </div>
+          <div>
+            <input
+              name="color"
+              type="checkbox"
+              id="lavender"
+              value="lavender"
+            />
+            <label
+              for="lavender"
+              style="
+                background-color: #e6e6fa;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Lavender</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="pink" value="pink" />
+            <label
+              for="pink"
+              style="
+                background-color: #ffc0cb;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Pink</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="peach" value="peach" />
+            <label
+              for="peach"
+              style="
+                background-color: #ffcc99;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Peach</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="coral" value="coral" />
+            <label
+              for="coral"
+              style="
+                background-color: #ff7f50;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Coral</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="mint" value="mint" />
+            <label
+              for="mint"
+              style="
+                background-color: #98ff98;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Mint</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="teal" value="teal" />
+            <label
+              for="teal"
+              style="
+                background-color: #008080;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Teal</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="cyan" value="cyan" />
+            <label
+              for="cyan"
+              style="
+                background-color: #00ffff;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Cyan</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="gray" value="gray" />
+            <label
+              for="gray"
+              style="
+                background-color: #808080;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Gray</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="silver" value="silver" />
+            <label
+              for="silver"
+              style="
+                background-color: #c0c0c0;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Silver</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="gold" value="gold" />
+            <label
+              for="gold"
+              style="
+                background-color: #ffd700;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Gold</label
+            >
+          </div>
+          <div>
+            <input
+              name="color"
+              type="checkbox"
+              id="charcoal"
+              value="charcoal"
+            />
+            <label
+              for="charcoal"
+              style="
+                background-color: #36454f;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Charcoal</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="khaki" value="khaki" />
+            <label
+              for="khaki"
+              style="
+                background-color: #f0e68c;
+                color: black;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Khaki</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="wine" value="wine" />
+            <label
+              for="wine"
+              style="
+                background-color: #722f37;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Wine</label
+            >
+          </div>
+          <div>
+            <input name="color" type="checkbox" id="magenta" value="magenta" />
+            <label
+              for="magenta"
+              style="
+                background-color: #ff00ff;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+              "
+              >Magenta</label
+            >
+          </div>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row p-2">
+        <h4>Price</h4>
+        <div class="text-center col-12">
+          <div class="price-range-wrapper" style="max-width: 250px">
+            <label class="price-range-label">Select Maximum Price Range</label>
+            <input
+              type="range"
+              min="0"
+              max="9999"
+              value="0"
+              class="price-slider"
+              id="priceRange"
+              step="100"
+              name="price"
+            />
+            <div class="price-value">₹ <span id="priceValue">0</span></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div id="rightside">
+    <% if(products.query['color'] || products.query['price']){ %>
+    <h5 style="color: rgb(190, 187, 187)">
+      <b
+        >Color: <% if(!products.query['color']){ %> Not Selected<% }else{ %> <%=
+        products.query['color'] %> <% } %>
+      </b>
+      <br />
+      <b
+        >Maximum Price: <% if(products.query['price']==0){ %> ALL<% }else{ %>
+        <%= products.query['price'] %> <% } %>
+      </b>
+    </h5>
+    <% } %> <% if(products.length > 0) {%>
+    <div class="products mt-3 my-scrollable-div">
+      <h3 style="font-size: 2rem; font-weight: bold">
+        Search Result found (<%= products.length %>)
+      </h3>
+      <hr />
+      <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+        <% for(let product of products) { %>
+        <div class="allCards col mb-3">
+          <a
+            href="/product/<%= product._id  %>"
+            style="text-decoration: none"
+          >
+            <div class="card">
+              <img
+                src="<%= product.img.url %>"
+                class="card-img-top"
+                alt="..."
+                style="height: 16rem"
+              />
+              <div class="card-body">
+                <p class="card-title">
+                  <b><%= product.brand %></b>
+                  <% if(product.avg_rating){ %>
+                  <b class="rating"
+                    ><%=product.avg_rating%> <% if(product.avg_rating < 3) {%>
+                    <i class="fa-solid fa-star orange"></i> <% } else{%>
+                    <i class="fa-solid fa-star green"></i><% } %> | <%=
+                    product.reviews.length.toLocaleString('en-US', {
+                    maximumFractionDigits: 2, notation: 'compact',
+                    compactDisplay: 'short' }); %></b
+                  >
+                  <% }else{ %>
+                  <b class="rating1">No Reviews</b>
+                  <% } %>
+                </p>
+                <p class="card-text" style="font-size: 0.9rem">
+                  <%= product.name %>
+                </p>
+                <% if(product.quantity!=0){ %>
+                <p class="card-text" style="font-size: 0.9rem">
+                  <b>Rs. <%=product.price.toLocaleString("en-IN");%></b>
+                  <b
+                    ><% if(product.quantity<6 && product.quantity!=0){ %>
+                    <span class="quantity">Only few Left!</span> <% } %></b
+                  >
+                </p>
+                <% }else{ %>
+                <p class="out">Out Of Stock!</p>
+                <% } %>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% }else{ %>
+    <h3 style="padding: 6px; display: inline-block">
+      Products Are Not Available Here!
+    </h3>
+    <div style="display: inline-block">
+      <% if(products.query['gender']){ %>
+      <a
+        class="btn btn-web"
+        href="/product?gender=<%= products.query['gender'] %>&type=<%= products.query['type'] %>"
+        >Clear</a
+      >
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+</div>
+<script>
+  const priceRange = document.getElementById("priceRange");
+  const priceValue = document.getElementById("priceValue");
+
+  priceRange.addEventListener("input", () => {
+    priceValue.textContent = priceRange.value;
+  });
+
+  document.getElementById("filter").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = document.getElementById("filter");
+    const formData = new FormData(form);
+    const currentUrl = new URL(window.location.href);
+    const currentParams = new URLSearchParams(currentUrl.search);
+
+    // Convert form data to an object
+    const newParams = {};
+    for (let [key, value] of formData.entries()) {
+      if (newParams[key]) {
+        newParams[key] = [].concat(newParams[key], value);
+      } else {
+        newParams[key] = value;
+      }
+    }
+    // Merge existing and new parameters
+    for (let key in newParams) {
+      currentParams.delete(key); // Remove existing key to avoid duplicates
+      if (Array.isArray(newParams[key])) {
+        newParams[key].forEach((val) => currentParams.append(key, val));
+      } else {
+        currentParams.append(key, newParams[key]);
+      }
+    }
+
+    // Redirect with updated URL
+    const newUrl = `${currentUrl.pathname}?${currentParams.toString()}`;
+    window.location.href = newUrl;
+  });
+</script>

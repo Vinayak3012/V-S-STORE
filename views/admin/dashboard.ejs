@@ -1,0 +1,168 @@
+<% layout('layouts/adminBoilerplate') %>
+<style>
+  h2 {
+    text-align: center;
+    font-size: 2.1rem;
+    font-weight: bold;
+  }
+  h4 {
+    text-align: center;
+    margin-top: -8rem;
+    font-size: 2rem;
+  }
+</style>
+<div>
+  <h2>overall data</h2>
+  <hr />
+  <canvas id="myChart"></canvas>
+</div>
+<hr />
+<br />
+<div>
+  <h2>
+    <%= new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric'
+    }); %> Data
+  </h2>
+  <hr />
+  <canvas id="myMonthChart"></canvas>`
+  <h4 class="error"></h4>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById("myChart");
+  const ctx2 = document.getElementById("myMonthChart");
+  const error = document.getElementsByClassName("error");
+
+  async function fetchData() {
+    path = "/admin/graph/brand/data";
+    const res = await fetch(path);
+    let data = res.json();
+    return data;
+  }
+
+  fetchData()
+    .then((res) => {
+      let overallData = res.overallData;
+      let overallSellerData = res.overallSellerData;
+      let data_seller = [];
+      let data_order = [];
+      for (order of overallSellerData) {
+        data_seller.push(order._id);
+        data_order.push(order.totalOrders);
+      }
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: data_seller,
+          datasets: [
+            {
+              label: "Number Of Orders",
+              data: data_order,
+              backgroundColor: ["rgba(0,0,0,0.7)"],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Overall Orders by Sellers",
+              font: {
+                size: 22,
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Sellers",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Orders Count",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+          },
+        },
+      });
+      //new
+      let monthly_data = [];
+      let date = new Date();
+      for (let data of overallData) {
+        const d = new Date(data.date);
+        if (d.getMonth() == date.getMonth() && d.getYear() == date.getYear()) {
+          monthly_data.push(data);
+        }
+      }
+      if (!monthly_data) {
+        error[0].innerText = "Data Not Available!";
+      }
+      new Chart(ctx2, {
+        type: "bar",
+        data: {
+          labels: monthly_data[0].sellers,
+          datasets: [
+            {
+              label: "Number Of Orders",
+              data: monthly_data[0].orders,
+              backgroundColor: ["rgba(0,0,0,0.7)"],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${new Date().toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })} Orders by Sellers`,
+              font: {
+                size: 22,
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Sellers",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Orders Count",
+                font: {
+                  size: 20,
+                },
+              },
+            },
+          },
+        },
+      });
+    })
+
+    .catch((e) => {
+      console.log("error: ", e);
+    });
+</script>

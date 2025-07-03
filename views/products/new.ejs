@@ -1,0 +1,290 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  h1 {
+    border: 1px solid rgb(190, 187, 187);
+    padding: 0.5rem;
+    width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .form-control,
+  .form-select {
+    background-color: #f7f1f0;
+  }
+  form{
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+</style>
+<h1>Add New a Product</h1>
+<br>
+<div class="row offset-4">
+  <form method="POST" action="/product/new" novalidate class="needs-validation" enctype="multipart/form-data">
+    <div class="mb-3 col-6">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        name="product[name]"
+        id="name"
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">Good name</div>
+    </div>
+
+    <div class="mb-3 col-6">
+      <label for="image" class="form-label">Add Image Url/Link</label>
+      <input
+        type="file"
+        name="product[img]"
+        id="image"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="mb-3 col-6">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        name="product[description]"
+        id="description"
+        class="form-control"
+        required
+      ></textarea>
+    </div>
+
+    <div class="mb-3 row">
+      <div class="col-3">
+        <select class="form-select" name="product[gender]" required>
+          <option selected disabled value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <select class="form-select" name="product[type]" required>
+          <option selected disabled value="">Select Product Type</option>
+          <!-- Men's Clothing -->
+          <optgroup label="Men's Clothing">
+            <option value="kurta">Kurta</option>
+            <option value="jacket">Jacket</option>
+            <option value="coat">Coat</option>
+            <option value="sherwani">Sherwani</option>
+            <option value="pathani">Pathani</option>
+            <option value="dhoti">Dhoti</option>
+            <option value="shirt">Shirt</option>
+            <option value="trousers">Trousers</option>
+            <option value="blazer">Blazer</option>
+            <option value="suit">Suit</option>
+            <option value="tie">Tie</option>
+            <option value="vest">Vest</option>
+            <option value="sweater">Sweater</option>
+            <option value="jeans">Jeans</option>
+            <option value="shorts">Shorts</option>
+            <option value="tshirt">T-shirt</option>
+            <option value="hoodie">Hoodie</option>
+            <option value="cardigan">Cardigan</option>
+            <option value="tracksuit">Tracksuit</option>
+            <option value="joggers">Joggers</option>
+            <option value="sportstshirt">Sports T-shirt</option>
+            <option value="sports-shoes">Sports Shoes</option>
+            <option value="gym-shorts">Gym Shorts</option>
+            <option value="running-shoes">Running Shoes</option>
+            <option value="pyjama">Pyjama</option>
+            <option value="nightgown">Nightgown</option>
+            <option value="robe">Robe</option>
+            <option value="sleep-shirt">Sleep Shirt</option>
+            <option value="sleep-shorts">Sleep Shorts</option>
+            <option value="slippers">Slippers</option>
+            <option value="boots">Boots</option>
+            <option value="sandals">Sandals</option>
+            <option value="loafers">Loafers</option>
+            <option value="formal-shoes">Formal Shoes</option>
+            <option value="flip-flops">Flip Flops</option>
+            <option value="running-shoes">Running Shoes</option>
+            <option value="watch">Watch</option>
+            <option value="bracelet">Bracelet</option>
+            <option value="scarf">Scarf</option>
+            <option value="hat">Hat</option>
+            <option value="belt">Belt</option>
+            <option value="sunglasses">Sunglasses</option>
+          </optgroup>
+
+          <!-- Women's Clothing -->
+          <optgroup label="Women's Clothing">
+            <option value="saree">Saree</option>
+            <option value="kurti">Kurti</option>
+            <option value="anarkali">Anarkali</option>
+            <option value="lehenga">Lehenga</option>
+            <option value="salwar-kameez">Salwar Kameez</option>
+            <option value="churidar">Churidar</option>
+            <option value="dress">Dress</option>
+            <option value="blouse">Blouse</option>
+            <option value="pencil-skirt">Pencil Skirt</option>
+            <option value="formal-pants">Formal Pants</option>
+            <option value="suit">Suit</option>
+            <option value="tshirt">T-shirt</option>
+            <option value="jeans">Jeans</option>
+            <option value="skirt">Skirt</option>
+            <option value="hoodie">Hoodie</option>
+            <option value="sweater">Sweater</option>
+            <option value="leggings">Leggings</option>
+            <option value="sports-tshirt">Sports T-shirt</option>
+            <option value="joggers">Joggers</option>
+            <option value="yoga-pants">Yoga Pants</option>
+            <option value="tracksuit">Tracksuit</option>
+            <option value="running-shoes">Running Shoes</option>
+            <option value="sports-bra">Sports Bra</option>
+            <option value="nightdress">Nightdress</option>
+            <option value="nightgown">Nightgown</option>
+            <option value="robe">Robe</option>
+            <option value="pajama-set">Pajama Set</option>
+            <option value="sleep-shorts">Sleep Shorts</option>
+            <option value="slippers">Slippers</option>
+            <option value="heels">Heels</option>
+            <option value="flats">Flats</option>
+            <option value="boots">Boots</option>
+            <option value="sandals">Sandals</option>
+            <option value="loafers">Loafers</option>
+            <option value="flip-flops">Flip Flops</option>
+            <option value="earrings">Earrings</option>
+            <option value="necklace">Necklace</option>
+            <option value="bracelet">Bracelet</option>
+            <option value="scarf">Scarf</option>
+            <option value="hat">Hat</option>
+            <option value="sunglasses">Sunglasses</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3 col-6">
+      <label for="brand" class="form-label">Brand Name</label>
+      <input
+        type="text"
+        name="product[brand]"
+        id="brand"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-3">
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="number"
+          name="product[price]"
+          id="price"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="col-3">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input
+          type="number"
+          name="product[quantity]"
+          id="quantity"
+          class="form-control"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <div class="col-2">
+        <select class="form-select" name="product[color]" required>
+          <option selected disabled value="">Select Color</option>
+          <option value="black">Black</option>
+          <option value="white">White</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="navy">Navy Blue</option>
+          <option value="skyblue">Sky Blue</option>
+          <option value="green">Green</option>
+          <option value="olive">Olive</option>
+          <option value="lime">Lime</option>
+          <option value="yellow">Yellow</option>
+          <option value="mustard">Mustard</option>
+          <option value="orange">Orange</option>
+          <option value="brown">Brown</option>
+          <option value="beige">Beige</option>
+          <option value="cream">Cream</option>
+          <option value="maroon">Maroon</option>
+          <option value="purple">Purple</option>
+          <option value="lavender">Lavender</option>
+          <option value="pink">Pink</option>
+          <option value="peach">Peach</option>
+          <option value="coral">Coral</option>
+          <option value="mint">Mint</option>
+          <option value="teal">Teal</option>
+          <option value="cyan">Cyan</option>
+          <option value="gray">Gray</option>
+          <option value="silver">Silver</option>
+          <option value="gold">Gold</option>
+          <option value="charcoal">Charcoal</option>
+          <option value="khaki">Khaki</option>
+          <option value="wine">Wine</option>
+          <option value="magenta">Magenta</option>
+        </select>
+      </div>
+
+      <div class="col-4">
+        <select class="form-select" name="product[size]" required>
+          <option selected disabled value="">Select Size</option>
+
+          <optgroup label="Clothing (Standard)">
+            <option value='<%= JSON.stringify(["SM","MD","LG"]) %>'>
+              SM - MD - LG
+            </option>
+            <option value='<%= JSON.stringify(["SM","MD","LG","XL"]) %>'>
+              SM - MD - LG - XL
+            </option>
+            <option value='<%= JSON.stringify(["SM","MD","LG","XL","XXL"]) %>'>
+              SM - MD - LG - XL - XXL
+            </option>
+          </optgroup>
+
+          <optgroup label="Pants & Jeans (Numeric)">
+            <option value='<%= JSON.stringify(["28","30","32"]) %>'>
+              28 - 30 - 32
+            </option>
+            <option value='<%= JSON.stringify(["30","32","34","36"]) %>'>
+              30 - 32 - 34 - 36
+            </option>
+            <option value='<%= JSON.stringify(["28","30","32","34"]) %>'>
+              28 - 30 - 32 - 34
+            </option>
+            <option
+              value='<%= JSON.stringify(["28","30","32","34","36","38","40"]) %>'
+            >
+              28 - 30 - 32 - 34 - 36 - 38 - 40
+            </option>
+          </optgroup>
+
+          <optgroup label="Shoes (UK Sizes)">
+            <option value='<%= JSON.stringify(["6","7","8","9","10"]) %>'>
+              6 - 7 - 8 - 9 - 10
+            </option>
+            <option value='<%= JSON.stringify(["5","6","7"]) %>'>
+              5 - 6 - 7
+            </option>
+          </optgroup>
+
+          <optgroup label="Watches / Accessories">
+            <option value='<%= JSON.stringify(["Free Size"]) %>'>
+              Free Size
+            </option>
+            <option value='<%= JSON.stringify(["Small","Medium","Large"]) %>'>
+              Small - Medium - Large
+            </option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-web">submit</button>
+  </form>
+</div>

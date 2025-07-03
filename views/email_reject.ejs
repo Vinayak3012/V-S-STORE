@@ -1,0 +1,40 @@
+<html>
+  <body style="font-family: Arial, sans-serif; color: #000; padding: 20px">
+    <p>Dear <strong><%= fullName %></strong>,</p>
+
+    <p>
+      We’re sorry to inform you that your order could not be processed at this
+      time.
+    </p>
+
+    <p>
+      <strong>Order ID:</strong> <%= orderId %><br />
+      <strong>Order Date:</strong> <%= orderDate %><br />
+      <strong>Email:</strong> <%= email %>
+    </p>
+
+    <p style="margin-top: 20px">
+      <a
+        href="/orders"
+        style="
+          background-color: #4caf50;
+          color: #fff;
+          padding: 10px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+        "
+      >
+        Check Order Status
+      </a>
+    </p>
+
+    <p>
+      We apologize for the inconvenience. Please contact our support team if you
+      need assistance or wish to place a new order.
+    </p>
+
+    <p>Thank you for your understanding.</p>
+
+    <p>— V&S Team</p>
+  </body>
+</html>

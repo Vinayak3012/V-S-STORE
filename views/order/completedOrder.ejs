@@ -1,0 +1,84 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  .completeStatus {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .table {
+    font-size: 1.2rem;
+    background-color: #f7f1f0;
+    text-align: center;
+  }
+  h4 {
+    text-align: center;
+    font-size: 2.4rem;
+    text-decoration: underline black;
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+  h1 {
+    border: 1px solid rgb(190, 187, 187);
+    padding: 0.5rem;
+    width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+</style>
+
+<h1>Orders Details Of Completed Order</h1>
+<hr />
+<%if(orders.length!=0){%>
+<div>
+  <table class="table table-bordered table-hover text-center table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Order Index</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Size</th>
+        <th scope="col">Price</th>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone no</th>
+        <th scope="col">Address</th>
+        <th scope="col">Order Placed Date</th>
+        <th scope="col">Delivery Date</th>
+        <th scope="col">Payment Method</th>
+        <th scope="col">Is Paid?</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let index = 1; %> <% for(let order of orders){ %>
+      <tr>
+        <th scope="row"><%= index++ %></th>
+        <td><%= order.product.name %></td>
+        <td><%= order.product.brand %></td>
+        <td><%= order.quantity %></td>
+        <td><%= order.selectedSize %></td>
+        <td>&#x20b9;<%= order.amount %></td>
+        <td><%= order.user.profile.name %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.user.profile.phoneNo %></td>
+        <td><%= order.user.profile.address %></td>
+        <td><%= order.Time.toLocaleDateString() %></td>
+        <td><%= order.delivery_time.toLocaleDateString() %></td>
+        <td><%= order.mode %></td>
+        <td><%= order.isPaid ? "Done":"Pending" %></td>
+        <td><div class="completeStatus">Completed</div></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<% } else { %>
+<div>
+  <h4>no order was completed yet</h4>
+</div>
+<% } %>
+<hr />
+<br />

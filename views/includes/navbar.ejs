@@ -1,0 +1,98 @@
+
+
+<nav class="navbar fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">V & S</a>
+    <ul
+      class="navbar-nav me-auto mb-2 mb-lg-0"
+    >
+      <li class="nav-item">
+        <a class="nav-link" href="/product/home">Home</a>
+      </li>
+
+      <% if(user && user.role!="seller"){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/cart">Bag</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/orders">Orders</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/profile">Profile</a>
+      </li>
+
+              <% if(user && user.role == 'admin'){ %>
+          <li class="nav-item">
+        <a class="nav-link admin-nav-head" href="/admin">Admin</a>
+      </li>
+          <% } %>
+
+      <% } %> <% if(user && user.role == "seller"){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/seller/dashboard"
+          >Dashboard</a
+        >
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/product/new"
+          >Add New Product</a
+        >
+        <li class="nav-item">
+          <a class="nav-link" href="/product/seller">My Products</a>
+        </li>
+      </li>
+      
+
+      <li class="nav-item">
+        <a class="nav-link" href="/checkOrders"
+          >Check Orders</a
+        >
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/checkCompletedOrders"
+          >Check Completed Orders</a
+        >
+      </li>
+
+      <% } %> <% if(user){ %>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+
+      <% } else { %>
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">Sign Up</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      
+      <% } %>
+
+      <% if(user && user.role!='seller'){ %>
+        <li class="search">
+        <form action="/product/search" method="POST">
+          <input class="form-control newSearchBar" type="text" name="query" placeholder="Search.. here">
+          <button class="btn btn-web">search</button>
+        </form>
+      </li>
+        <% } %>
+
+        <% if(!user){ %>
+        <li class="newsearch ">
+        <form action="/product/search" method="POST">
+          <input class="form-control newSearchBar" type="text" name="query" placeholder="Search.. here">
+          <button class="btn btn-web">search</button>
+        </form>
+      </li>
+        <% } %>
+
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,287 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  .filters {
+    display: flex;
+    position: relative; /* Important: parent should be relative */
+    gap: 40px;
+    margin-left: 20px;
+    color: black;
+    font-size: 1.6rem;
+    margin-left: 6rem;
+  }
+
+  .filterHead {
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 2rem;
+    margin-right: 1rem;
+    text-decoration: underline solid gold;
+  }
+
+  .filterHead:hover {
+    text-decoration: underline solid rgb(216, 213, 213);
+    color: rgb(216, 213, 213);
+  }
+  .filterBox div p:hover {
+    text-decoration: underline solid rgb(216, 213, 213);
+    color: rgb(216, 213, 213);
+    cursor: pointer;
+  }
+  .filterBox div h5 {
+    text-decoration: underline solid rgb(216, 213, 213);
+    font-size: 1.9rem;
+    font-weight: bold;
+  }
+
+  /* Hidden by default */
+  #showWomenfilter,
+  #showMenfilter {
+    display: none;
+    position: absolute;
+    top: 100%; /* Show below the filterHead */
+    left: 0;
+    background-color: #f7f1f0;
+    z-index: 100; /* Over products */
+  }
+
+  /* Filter Box Style */
+  .filterBox {
+    display: flex;
+    border: 2px solid black;
+    width: auto;
+    gap: 40px;
+    padding: 10px;
+  }
+
+  .banner {
+    height: 500px;
+    margin-left: -200px;
+    width: 1700px;
+  }
+</style>
+<div>
+  <div class="filters">
+    <div id="filter1">
+      <p class="filterHead">Men</p>
+      <div id="showMenfilter">
+        <div class="filterBox">
+          <div>
+            <h5>Traditional Wear</h5>
+            <div>
+              <p>Kurta</p>
+              <p>Jacket</p>
+              <p>Coat</p>
+              <p>Sherwani</p>
+              <p>Pathani</p>
+              <p>Dhoti</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Formal Wear</h5>
+            <div>
+              <p>Shirt</p>
+              <p>Trousers</p>
+              <p>Blazer</p>
+              <p>Suit</p>
+              <p>Tie</p>
+              <p>Vest</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Casual Wear</h5>
+            <div>
+              <p>Sweater</p>
+              <p>Jeans</p>
+              <p>Shorts</p>
+              <p>T-shirt</p>
+              <p>Hoodie</p>
+              <p>Cardigan</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Sportswear</h5>
+            <div>
+              <p>Tracksuit</p>
+              <p>Joggers</p>
+              <p>Sports T-shirt</p>
+              <p>Sports Shoes</p>
+              <p>Gym Shorts</p>
+              <p>Running Shoes</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Sleepwear</h5>
+            <div>
+              <p>Pyjama</p>
+              <p>Nightgown</p>
+              <p>Robe</p>
+              <p>Sleep Shirt</p>
+              <p>Sleep Shorts</p>
+              <p>Slippers</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Footwear</h5>
+            <div>
+              <p>Boots</p>
+              <p>Sandals</p>
+              <p>Loafers</p>
+              <p>Formal Shoes</p>
+              <p>Flip Flops</p>
+              <p>Running Shoes</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Accessories</h5>
+            <div>
+              <p>Watch</p>
+              <p>Bracelet</p>
+              <p>Scarf</p>
+              <p>Hat</p>
+              <p>Belt</p>
+              <p>Sunglasses</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="filter2">
+      <p class="filterHead">Women</p>
+      <div id="showWomenfilter">
+        <div class="filterBox">
+          <!-- Women's Categories -->
+          <div>
+            <h5>Traditional Wear</h5>
+            <div>
+              <p>Saree</p>
+              <p>Kurti</p>
+              <p>Anarkali</p>
+              <p>Lehenga</p>
+              <p>Salwar Kameez</p>
+              <p>Churidar</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Formal Wear</h5>
+            <div>
+              <p>Dress</p>
+              <p>Shirt</p>
+              <p>Blouse</p>
+              <p>Pencil Skirt</p>
+              <p>Formal Pants</p>
+              <p>Suit</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Casual Wear</h5>
+            <div>
+              <p>T-shirt</p>
+              <p>Jeans</p>
+              <p>Skirt</p>
+              <p>Hoodie</p>
+              <p>Sweater</p>
+              <p>Leggings</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Sportswear</h5>
+            <div>
+              <p>Sports T-shirt</p>
+              <p>Joggers</p>
+              <p>Yoga Pants</p>
+              <p>Tracksuit</p>
+              <p>Running Shoes</p>
+              <p>Sports Bra</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Sleepwear</h5>
+            <div>
+              <p>Nightdress</p>
+              <p>Nightgown</p>
+              <p>Robe</p>
+              <p>Pajama Set</p>
+              <p>Sleep Shorts</p>
+              <p>Slippers</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Footwear</h5>
+            <div>
+              <p>Heels</p>
+              <p>Flats</p>
+              <p>Boots</p>
+              <p>Sandals</p>
+              <p>Loafers</p>
+              <p>Flip Flops</p>
+            </div>
+          </div>
+
+          <div>
+            <h5>Accessories</h5>
+            <div>
+              <p>Earrings</p>
+              <p>Necklace</p>
+              <p>Bracelet</p>
+              <p>Scarf</p>
+              <p>Hat</p>
+              <p>Sunglasses</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <a href="/product?gender=female&type=t-shirt">
+    <img class="banner" src="/assests/banner.png" alt="banner" />
+  </a>
+</div>
+<br />
+<div>
+  <a href="/product?gender=male&type=jacket"
+    ><img class="banner" src="/assests/banner2.png" alt="banner"
+  /></a>
+</div>
+
+<script>
+  document.getElementById("filter1").addEventListener("mouseover", (e) => {
+    document.getElementById("showMenfilter").style.display = "block";
+  });
+  filter1.addEventListener("mouseleave", () => {
+    document.getElementById("showMenfilter").style.display = "none";
+  });
+  document.getElementById("filter2").addEventListener("mouseover", (e) => {
+    document.getElementById("showWomenfilter").style.display = "block";
+  });
+  filter2.addEventListener("mouseleave", () => {
+    document.getElementById("showWomenfilter").style.display = "none";
+  });
+  document.getElementById("showMenfilter").addEventListener("click", (e) => {
+    let value = e.target.innerText.toLowerCase();
+    let query = new URLSearchParams({ gender: "male", type: value }).toString();
+    window.location.href = `/product?${query}`;
+  });
+  document.getElementById("showWomenfilter").addEventListener("click", (e) => {
+    let value = e.target.innerText.toLowerCase();
+    let query = new URLSearchParams({
+      gender: "female",
+      type: value,
+    }).toString();
+    window.location.href = `/product?${query}`;
+  });
+</script>

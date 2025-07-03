@@ -1,0 +1,169 @@
+<% layout('layouts/adminBoilerplate') %>
+<style>
+  /* all_products */
+  .card {
+    height: 100%;
+    width: 100%;
+    background-color: #e9e9e4 !important;
+  }
+  .card:hover {
+    box-shadow: 3px 3px 6px black;
+  }
+  #main {
+    font-size: 1.2rem;
+  }
+
+  .rating {
+    background-color: #e9e9e4;
+    margin-left: 3rem;
+    padding: 3px 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: black;
+    font-size: 1.1rem;
+  }
+  .rating1 {
+    background-color: #b5b509;
+    margin-left: 3rem;
+    padding: 3px 5px;
+    border-radius: 4px;
+    opacity: 0.9;
+    color: white;
+    font-size: 1.1rem;
+  }
+
+  .green {
+    color: rgb(26, 190, 26);
+  }
+  .orange {
+    color: rgb(211, 142, 14);
+  }
+  .quantity {
+    color: green;
+    text-decoration: underline;
+    margin-left: 7rem;
+    font-size: 1.2rem;
+  }
+  .color div label {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
+  .out {
+    color: red;
+    border: 1px solid red;
+    display: inline-block;
+    padding: 0.5rem;
+    font-weight: bold;
+    margin-left: 1rem;
+    font-size: 1.3rem;
+  }
+  .search_seller form .seller_input {
+    background-color: rgb(190, 187, 187) !important;
+    margin-right: 0.2rem;
+    width: 15rem;
+  }
+  .search_seller form {
+    display: flex;
+  }
+  .search_seller {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-web {
+    color: black;
+    background-color: #f7f1f0;
+    border: 1px solid black;
+  }
+  .btn-web:hover {
+    color: #f7f1f0;
+    background-color: black;
+  }
+
+  h3 {
+    padding: 6px;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+</style>
+<br />
+<div class="search_seller">
+  <form action="/admin/search" method="POST">
+    <input
+      class="form-control seller_input"
+      type="text"
+      name="query"
+      placeholder="Search.. here"
+    />
+    <button class="btn btn-web">search</button>
+  </form>
+</div>
+
+<div id="main">
+  <% if(products.length > 0) { %>
+  <div class="products mt-3 my-scrollable-div">
+    <h3 style="font-size: 2rem; font-weight: bold">
+      Search Result found (<%= products.length %>)
+    </h3>
+    <hr />
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+      <% for(let product of products) { %>
+      <div class="allCards col mb-3">
+        <a
+          href="/product/<%= product._id  %>"
+          style="text-decoration: none"
+        >
+          <div class="card">
+            <img
+              src="<%= product.img.url %>"
+              class="card-img-top"
+              alt="..."
+              style="height: 16rem"
+            />
+            <div class="card-body">
+              <p class="card-title">
+                <b style="font-size: 1.2rem"><%= product.brand %></b>
+                <% if(product.avg_rating){ %>
+                <b class="rating"
+                  ><%=product.avg_rating%> <% if(product.avg_rating < 3) {%>
+                  <i class="fa-solid fa-star orange"></i> <% } else{%>
+                  <i class="fa-solid fa-star green"></i><% } %> | <%=
+                  product.reviews.length.toLocaleString('en-US', {
+                  maximumFractionDigits: 2, notation: 'compact', compactDisplay:
+                  'short' }); %></b
+                >
+                <% }else{ %>
+                <b class="rating1">No Reviews</b>
+                <% } %>
+              </p>
+              <p class="card-text" style="font-size: 0.9rem">
+                <%= product.name %>
+              </p>
+              <% if(product.quantity!=0){ %>
+              <p class="card-text" style="font-size: 0.9rem">
+                <b>Rs. <%=product.price.toLocaleString("en-IN");%></b>
+                <b
+                  ><% if(product.quantity<6 && product.quantity!=0){ %>
+                  <span class="quantity">Only few Left!</span> <% } %></b
+                >
+              </p>
+              <% }else{ %>
+              <p class="out">Out Of Stock!</p>
+              <% } %>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } else {%>
+  <h3>Product Not Found!</h3>
+  <% } %>
+</div>

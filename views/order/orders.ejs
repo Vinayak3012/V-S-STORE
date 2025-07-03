@@ -1,0 +1,143 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  img {
+    height: 100px;
+    width: 100px;
+  }
+  span {
+    margin-right: 9px;
+  }
+  .showStatus {
+    text-decoration: underline;
+    color: greenyellow;
+    background-color: black;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+  hr {
+    width: 55rem;
+    margin: 1rem auto;
+  }
+  h1 {
+    border: 1px solid rgb(190, 187, 187);
+    padding: 0.5rem;
+    width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .card {
+    background-color: #f7f1f0;
+    font-size: 1.3rem;
+  }
+  h4 {
+    text-align: center;
+    font-size: 2.4rem;
+    text-decoration: underline black;
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+</style>
+
+<h1>
+  <i class="fa-solid fa-sort-down"> </i> Your Orders
+  <i class="fa-solid fa-sort-down"></i>
+</h1>
+<hr />
+<%if(orders.length==0){%>
+<div>
+  <h4>Order Not Place Yet:(</h4>
+</div>
+<% } %>
+<div class="offset-3" style="max-width: 650px">
+  <% let index = 1; %> <% for(let order of orders){ %> <%
+  if(order.status!="InProgress" && order.status!="Completed" &&
+  order.status!="Rejected"){ %>
+  <div class="row card mb-3 g-0 p-4">
+    <div class="card-title"><b>#<%= index++; %> Order Summary:</b></div>
+    <hr />
+    <div style="display: flex" class="col-md-12">
+      <div class="col-md-3">
+        <img src="<%= order.product.img.url %>" alt="" />
+      </div>
+      <div class="col-md-9">
+        <p class="orderDetail">
+          <%= order.product.name %> <br />
+          <span>Quantity: <%= order.quantity %></span> <br />
+          <span>Size: <%= order.selectedSize %></span> <br /><span
+            >Product By: <%= order.product.brand %></span
+          >
+        </p>
+      </div>
+    </div>
+
+    <hr />
+    <p>
+      <span>Mode: <b><%= order.mode.toUpperCase() %> </b></span>
+      <span
+        >Payment Status:
+        <b><% if(order.isPaid){%> Paid <% }else{ %>Pending<% } %></b></span
+      >
+      <span> Amount: <b>&#x20b9;<%= order.amount %></b></span>
+    </p>
+    <p>Delivery Address: <%=user.profile.address %></p>
+    <p>
+      Order Status: <%if(order.status=="Placed"){%>
+      <span class="showStatus" style="font-size: 0.8rem"
+        >Your Order On Pending State Maybe Accepted Or Rejected by Seller!</span
+      >
+      <% } %> <%if(order.status=="Accepted"){%>
+      <span class="showStatus" style="color: yellow"
+        >Your Order will be delivered on <%=
+        order.delivery_time.toLocaleDateString() %></span
+      >
+      <% } %>
+    </p>
+  </div>
+  <% } %> <% }%>
+</div>
+
+<div class="offset-3" style="max-width: 650px">
+  <% let index2 = 1; %> <% for(let order of orders){ %> <%
+  if(order.status=="Completed" || order.status=="Rejected"){ %>
+  <div class="row card mb-3 g-0 p-4">
+    <div class="card-title"><b>#<%= index2++; %> Order Summary:</b></div>
+    <hr />
+    <div style="display: flex" class="col-md-12">
+      <div class="col-md-3">
+        <img src="<%= order.product.img.url %>" alt="" />
+      </div>
+      <div class="col-md-9">
+        <p class="orderDetail">
+          <%= order.product.name %> <br />
+          <span>Quantity: <%= order.quantity %></span> <br />
+          <span>Size: <%= order.selectedSize %></span> <br /><span
+            >Product By: <%= order.product.brand %></span
+          >
+        </p>
+      </div>
+    </div>
+    <hr />
+    <p>
+      <span>Mode: <b><%= order.mode.toUpperCase() %> </b></span>
+      <span
+        >Payment Status:
+        <b><% if(order.isPaid){%> Paid <% }else{ %>Pending<% } %></b></span
+      >
+    </p>
+    <p>Delivery Address: <%=user.profile.address %></p>
+    <p>
+      Order Status: <%if(order.status=="Completed"){%>
+      <span class="showStatus" style="color: green">Order Is Completed</span>
+      <% } %> <%if(order.status=="Rejected"){%>
+      <span class="showStatus" style="color: red; font-size: 0.8rem"
+        >Unfortunately! Your order was Rejected due to certain reasons</span
+      >
+      <% } %>
+    </p>
+    <% if(order.status == "Completed"){ %>
+    <p>Delivered Date : <%= order.delivery_time.toLocaleDateString() %></p>
+    <% } %>
+  </div>
+  <% } %> <% }%>
+</div>

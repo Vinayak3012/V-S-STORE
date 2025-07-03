@@ -1,0 +1,138 @@
+<% layout('layouts/adminBoilerplate') %>
+<style>
+  /* admin */
+  .status {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 2rem;
+  }
+  h2,
+  h3 {
+    text-align: center;
+  }
+  .inactive {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 2rem;
+  }
+  table{
+    font-size: 1.2rem;
+  }
+</style>
+<hr />
+<h2>Manage Users</h2>
+<hr />
+<div>
+  <h3>Users</h3>
+  <table class="table table-hover text-center table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let i = 1 %> <% for(let user of users){ %> <% if(user.role == "user"){
+      %>
+      <tr>
+        <td><%= i %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td>
+          <% if(user.status) { %> <span class="status">Active</span><% }else{ %>
+          <span class="inactive">Inactive</span><% } %>
+        </td>
+        <td>
+          <% if(!user.status){ %>
+          <div>
+            <a
+              class="btn btn-success btn-sm mb-2"
+              role="button"
+              href="/admin/status/active/<%= user._id %>"
+              >Unlock</a
+            >
+          </div>
+          <% }else{ %>
+          <div>
+            <a
+              class="btn btn-danger btn-sm mb-2"
+              role="button"
+              href="/admin/status/deactive/<%= user._id %>"
+              >Block</a
+            >
+          </div>
+          <% } %>
+
+          <div>
+            <a
+              class="btn btn-sm btn-success"
+              role="button"
+              href="/admin/role/seller/<%= user._id %>"
+              >Add Seller</a
+            >
+          </div>
+        </td>
+      </tr>
+      <% i=i+1 %> <% } %> <% } %>
+    </tbody>
+  </table>
+
+  <h3>Sellers</h3>
+  <table class="table table-hover text-center table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let j = 1 %> <% for(let user of users){ %> <% if(user.role ==
+      "seller"){ %>
+      <tr>
+        <td><%= j %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td>
+          <% if(user.status) { %> <span class="status">Active</span><% }else{ %>
+          <span class="inactive">Inactive</span><% } %>
+        </td>
+        <td>
+          <% if(!user.status){ %>
+          <div>
+            <a
+              class="btn btn-success btn-sm"
+              role="button"
+              href="/admin/status/active/<%= user._id %>"
+              >Unlock</a
+            >
+          </div>
+          <% }else{ %>
+          <div>
+            <a
+              class="btn btn-danger btn-sm"
+              role="button"
+              href="/admin/status/deactive/<%= user._id %>"
+              >Block</a
+            >
+          </div>
+          <% } %>
+        </td>
+      </tr>
+      <% j=j+1%><% } %><% } %>
+    </tbody>
+  </table>
+</div>
