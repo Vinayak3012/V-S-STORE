@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node bullmq.js",
+    "web": "node app.js",
+    "worker": "node bullmq.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "vinayak lad",

@@ -8,7 +8,7 @@ const Product_Analysis = require("./models/productAnalysis");
 const Redis = require("ioredis");
 const redis = new Redis({
   host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
+  port: parseInt(process.env.REDIS_PORT),
   password: process.env.REDIS_PASS,
   tls: {}, // TLS is required by Redis Cloud
 });

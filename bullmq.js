@@ -11,12 +11,11 @@ const { CalAvgRating } = require("./simple_tasks");
 const { analysis_of_sellers_monthly } = require("./simple_tasks");
 const { analysis_of_product_monthly } = require("./simple_tasks");
 
-
 const connection = {
   host: process.env.REDIS_HOST,
   port: parseInt(process.env.REDIS_PORT),
   password: process.env.REDIS_PASS,
-  tls: {} // TLS is required by Redis Cloud
+  tls: {}, // TLS is required by Redis Cloud
 };
 
 const worker = new Worker(
@@ -40,7 +39,7 @@ const worker = new Worker(
     }
   },
   {
-    connection: { connection },
+    connection: connection,
   }
 );
 
@@ -54,7 +53,7 @@ const worker2 = new Worker(
     }
   },
   {
-    connection: { connection },
+    connection: connection,
   }
 );
 
@@ -70,7 +69,7 @@ const worker3 = new Worker(
     }
   },
   {
-    connection: { connection },
+    connection: connection,
     concurrency: 1, // 🔒 Only one job runs at a time
   }
 );
