@@ -5,12 +5,9 @@ const Order = require("./models/order");
 const Analysis = require("./models/analysis");
 const Product_Analysis = require("./models/productAnalysis");
 
-const Redis = require("ioredis");
-const redis = new Redis({
-  host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT),
-  password: process.env.REDIS_PASS,
-});
+const IORedis = require("ioredis");
+
+const connection = new IORedis(process.env.REDIS_URL);
 
 main()
   .then(() => {

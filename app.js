@@ -37,16 +37,13 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(process.env.DB_URL);
 }
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.json()); // ✅ Parses JSON body
-app.use(express.urlencoded({ extended: true })); // ✅ Parses form data
+app.use(express.urlencoded({ extended: true })); //  Parses form data
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate); // for includes and layouts
 app.use(methodOverride("_method"));
@@ -111,7 +108,7 @@ app.post("/subscribe", async (req, res) => {
     {
       email: email,
     },
-    { delay: 40000 }
+    { delay: 40000 },
   );
   res.redirect("/");
 });

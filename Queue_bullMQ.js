@@ -1,11 +1,9 @@
 require("dotenv").config();
 const { Queue } = require("bullmq");
 
-const connection = {
-  host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT),
-  password: process.env.REDIS_PASS,
-};
+const IORedis = require("ioredis");
+
+const connection = new IORedis(process.env.REDIS_URL);
 
 //email asynchronous tasks
 const emailQueue = new Queue("emailQueue", {

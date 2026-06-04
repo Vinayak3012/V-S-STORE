@@ -11,11 +11,9 @@ const { CalAvgRating } = require("./simple_tasks");
 const { analysis_of_sellers_monthly } = require("./simple_tasks");
 const { analysis_of_product_monthly } = require("./simple_tasks");
 
-const connection = {
-  host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT),
-  password: process.env.REDIS_PASS,
-};
+const IORedis = require("ioredis");
+
+const connection = new IORedis(process.env.REDIS_URL);
 
 const worker = new Worker(
   "emailQueue",
@@ -39,7 +37,7 @@ const worker = new Worker(
   },
   {
     connection: connection,
-  }
+  },
 );
 
 const worker2 = new Worker(
@@ -53,7 +51,7 @@ const worker2 = new Worker(
   },
   {
     connection: connection,
-  }
+  },
 );
 
 const worker3 = new Worker(
@@ -70,7 +68,7 @@ const worker3 = new Worker(
   {
     connection: connection,
     concurrency: 1, // 🔒 Only one job runs at a time
-  }
+  },
 );
 
 worker.on("completed", (job) => {
