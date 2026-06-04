@@ -41,7 +41,6 @@ async function CalAvgRating({ product_id }) {
 }
 
 //seller monthly order performance by order quantity sold
-
 async function analysis_of_sellers_monthly({ order_id }) {
   const lockKey = "lock:seller-analysis";
   const locked = await redis.set(lockKey, "1", "NX", "PX", 5000); // 5 sec lock
