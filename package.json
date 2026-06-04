@@ -2,6 +2,9 @@
   "name": "e-commerace",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "web": "node app.js",
     "worker": "node bullmq.js",
